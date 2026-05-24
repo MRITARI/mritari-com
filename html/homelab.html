@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homelab - MRITARI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#c8a065',
+                        accent: '#9e231b',
+                        bg: '#080808'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-bg text-gray-400 font-sans leading-relaxed selection:bg-accent selection:text-white">
+    
+    <nav class="fixed w-full border-b border-accent/30 bg-bg/90 backdrop-blur-md z-50 py-4">
+        <div class="max-w-4xl mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center gap-3 font-bold tracking-widest text-primary">
+                <img src="ySViDA6.png" class="w-8 h-8 rounded-full border border-primary"> MRITARI
+            </div>
+            <div class="space-x-8 text-[10px] font-bold uppercase tracking-[0.2em] text-primary">
+                <a href="https://mritari.com/#about" class="hover:text-white transition-colors">About</a>
+                <a href="https://mritari.com/#projects" class="hover:text-white transition-colors">Projects</a>
+                <a href="https://mritari.com/#posts" class="hover:text-white transition-colors">Posts</a>
+                <a href="https://contact.mritari.com" class="hover:text-white transition-colors">Contact & Links</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto pt-32 px-6 pb-20">
+        <header class="mb-16">
+            <h1 class="text-3xl font-semibold tracking-tighter text-primary mb-2">Homelab</h1>
+            <p class="text-accent tracking-[0.2em] uppercase text-xs">Powered by Cloudflare & Tailscale</p>
+        </header>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+            
+            <div class="group relative aspect-square border border-accent/30 overflow-hidden cursor-pointer">
+                <img src="thinkcentre.png" alt="ThinkCentre" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                <div class="absolute inset-0 bg-bg/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center p-6">
+                    <h3 class="text-primary font-bold text-lg mb-2">ThinkCentre</h3>
+                    <p class="text-xs text-gray-300">Running CasaOS and Tailscale exit node</p>
+                </div>
+            </div>
+
+            <div class="group relative aspect-square border border-accent/30 overflow-hidden cursor-pointer">
+                <img src="laptop.png" alt="Laptop" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                <div class="absolute inset-0 bg-bg/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center p-6">
+                    <h3 class="text-primary font-bold text-lg mb-2">Laptop</h3>
+                    <p class="text-xs text-gray-300">Home Assistant server for local automation and control</p>
+                </div>
+            </div>
+
+            <div class="group relative aspect-square border border-accent/30 overflow-hidden cursor-pointer">
+                <img src="rack.png" alt="Rack" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                <div class="absolute inset-0 bg-bg/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center p-6">
+                    <h3 class="text-primary font-bold text-lg mb-2">Rack</h3>
+                    <p class="text-xs text-gray-300">Holds everything</p>
+                </div>
+            </div>
+
+            <div class="group relative aspect-square border border-accent/30 overflow-hidden cursor-pointer">
+                <img src="rackpower.png" alt="Rack Power" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                <div class="absolute inset-0 bg-bg/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center p-6">
+                    <h3 class="text-primary font-bold text-lg mb-2">Power</h3>
+                    <p class="text-xs text-gray-300">Power :D</p>
+                </div>
+            </div>
+
+            <div class="group relative aspect-square border border-accent/30 overflow-hidden cursor-pointer">
+                <img src="rpi4.png" alt="RPi4" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                <div class="absolute inset-0 bg-bg/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center p-6">
+                    <h3 class="text-primary font-bold text-lg mb-2">Raspberry Pi 4</h3>
+                    <p class="text-xs text-gray-300">Dedicated public edge server & hosts mritari.com</p>
+                </div>
+            </div>
+
+            <div class="group relative aspect-square border border-accent/30 overflow-hidden cursor-pointer">
+                <img src="switch.png" alt="Switch" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                <div class="absolute inset-0 bg-bg/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center p-6">
+                    <h3 class="text-primary font-bold text-lg mb-2">Cisco Switch</h3>
+                    <p class="text-xs text-gray-300">VLAN segmentation and network containment</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+</body>
+</html>
