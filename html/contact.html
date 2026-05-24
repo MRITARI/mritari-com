@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#c8a065',
+                        accent: '#9e231b',
+                        bg: '#080808'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-bg text-gray-400 font-sans leading-relaxed selection:bg-accent selection:text-white">
+
+    <main class="max-w-2xl mx-auto pt-24 px-6 min-h-screen">
+        <header class="text-center py-10 mb-6">
+            <h1 class="text-3xl font-semibold tracking-tighter text-primary mb-2">CONTACT & LINKS</h1>
+            <div class="w-12 h-[1px] bg-accent mx-auto"></div>
+        </header>
+
+        <div class="grid grid-cols-2 gap-4">
+            
+            <a href="https://instagram.com/mritari101" class="flex flex-col items-center justify-center p-6 border border-accent/30 hover:border-primary transition-all group gap-2">
+    <svg class="w-5 h-5 text-primary group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+    </svg>
+    <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400 group-hover:text-primary">Instagram</span>
+</a>
+
+<a href="https://linkedin.com/in/mritari101" class="flex flex-col items-center justify-center p-6 border border-accent/30 hover:border-primary transition-all group gap-2">
+    <svg class="w-5 h-5 text-primary group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+        <rect x="2" y="9" width="4" height="12"></rect>
+        <circle cx="4" cy="4" r="2"></circle>
+    </svg>
+    <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400 group-hover:text-primary">LinkedIn</span>
+</a>
+
+            <a href="https://t.me/TeleEq" class="flex flex-col items-center justify-center p-6 border border-accent/30 hover:border-primary transition-all group gap-2">
+                <i data-lucide="send" class="w-5 h-5 text-primary group-hover:text-white"></i>
+                <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400 group-hover:text-primary">Telegram</span>
+            </a>
+
+            <a href="https://signal.me/#eu/2ZE8DOSQSytRC8UzxWbNZc02dtQR8PhmKECp84xRacwFljJ4G3ZGtrUAywYP2Ixh" class="flex flex-col items-center justify-center p-6 border border-accent/30 hover:border-primary transition-all group gap-2">
+                <i data-lucide="message-circle" class="w-5 h-5 text-primary group-hover:text-white"></i>
+                <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400 group-hover:text-primary">Signal</span>
+            </a>
+
+            <a href="mailto:contact@mritari.com" class="col-span-2 flex items-center justify-center p-6 border border-accent/30 hover:border-primary transition-all group gap-3">
+                <i data-lucide="mail" class="w-5 h-5 text-primary group-hover:text-white"></i>
+                <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400 group-hover:text-primary">contact@mritari.com</span>
+            </a>
+
+        </div>
+    </main>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

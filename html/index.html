@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>C:\index\files</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+    body {
+        background-color: #000000;
+        color: #ffffff;
+        font-family: 'Consolas', 'Courier New', monospace;
+        margin: 0;
+        padding: 0;
+        user-select: none;
+    }
+    .terminal-container {
+        padding: 1.5rem;
+        min-height: 100vh;
+    }
+    .terminal-output {
+        white-space: pre-wrap;
+        word-break: break-all;
+        font-size: 20px;
+        line-height: 1.5;
+    }
+    a {
+        color: #00ffff;
+        text-decoration: none;
+        transition: color 0.1s;
+    }
+    a:hover {
+        color: #ff00ff;
+        text-decoration: underline;
+    }
+    .cursor {
+        display: inline-block;
+        width: 8px;
+        height: 1em;
+        background: #ffffff;
+        animation: blink 0.8s step-start infinite;
+        vertical-align: bottom;
+    }
+    @keyframes blink {
+        50% { background: transparent; }
+    }
+</style>
+</head>
+<body>
+
+<ul id="fileList" style="display:none;">
+    <li>readme.md</li>
+    <li>tukiframework.exe</li>
+    <li>proffa.png</li>
+    <li>rs.txt</li>
+</ul>
+
+<div class="terminal-container">
+    <pre id="output" class="terminal-output"></pre>
+</div>
+
+<script>
+(async () => {
+    const output = document.getElementById('output');
+    const files = [...document.querySelectorAll('#fileList li')].map(li => li.textContent.trim());
+    const delay = ms => new Promise(res => setTimeout(res, ms));
+
+    output.innerHTML = '<span class="cursor"></span>';
+    const cursor = output.querySelector('.cursor');
+
+    async function getFileSize(url) {
+        try {
+            const res = await fetch(url, { method: 'HEAD' });
+            const size = res.headers.get('content-length');
+            if (size) return parseInt(size);
+
+            if (url.endsWith('.zip')) return 5451200;
+            if (url.endsWith('.ps1')) return 640;
+            if (url.endsWith('.md')) return 1200;
+            return 256;
+
+        } catch (e) {
+            if (url.endsWith('.zip')) return 5451200;
+            if (url.endsWith('.ps1')) return 640;
+            if (url.endsWith('.md')) return 1200;
+            return 256;
+        }
+    }
+
+    async function typeText(text, newline = true) {
+        let lineNode = document.createTextNode('');
+        output.insertBefore(lineNode, cursor);
+
+        for (let char of text) {
+            lineNode.nodeValue += char;
+            await delay(10);
+        }
+        
+        if (newline) {
+            output.insertBefore(document.createTextNode('\n'), cursor);
+        }
+        await delay(50);
+        return lineNode;
+    }
+
+    await typeText("C:\\index\\files> dir");
+    
+    await delay(300); 
+    
+    const header = document.createElement('span');
+    header.style.color = '#ffffff';
+    header.textContent = "\n Volume in drive C has no label.\n Directory of C:\\index\\files\n\n";
+    output.insertBefore(header, cursor);
+
+    if (files.length > 0) {
+        let totalSize = 0;
+        for (const file of files) {
+            const filePath = `/index/files/${encodeURIComponent(file)}`;
+            const size = await getFileSize(filePath);
+            totalSize += size;
+            
+            const sizeText = size.toLocaleString().padStart(12, ' ');
+            const linePrefix = `\t ${sizeText} bytes `;
+
+            await typeText(linePrefix, false); 
+            
+            const fileTextNode = await typeText(file, true); 
+            
+            const link = document.createElement('a');
+            link.href = filePath;
+            link.download = file;
+            link.textContent = file;
+
+            fileTextNode.parentNode.replaceChild(link, fileTextNode);
+        }
+        
+        await typeText("------------------------------------------------------------------");
+        await typeText(`${files.length} File(s) total: ${totalSize.toLocaleString()} bytes`);
+
+    } else {
+        await typeText("0 File(s)          0 bytes");
+    }
+    
+    await typeText("\nC:\\index\\files>", false);
+
+    cursor.remove();
+    output.appendChild(cursor);
+
+})();
+</script>
+</body>
+</html>

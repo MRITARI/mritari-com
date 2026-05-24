@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#c8a065',
+                        accent: '#9e231b',
+                        bg: '#080808'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        h2 { font-size: 16px; }
+    </style>
+</head>
+<body class="bg-bg text-gray-400 font-sans leading-relaxed selection:bg-accent selection:text-white">
+
+    <nav class="fixed w-full border-b border-accent/30 bg-bg/90 backdrop-blur-md z-50 py-4">
+        <div class="max-w-4xl mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center gap-3 font-bold tracking-widest text-primary">
+                <img src="ySViDA6.png" class="w-8 h-8 rounded-full border border-primary"> MRITARI
+            </div>
+            <div class="space-x-8 text-[10px] font-bold uppercase tracking-[0.2em] text-primary">
+                <a href="#about" class="hover:text-white transition-colors">About</a>
+                <a href="#projects" class="hover:text-white transition-colors">Projects</a>
+                <a href="#posts" class="hover:text-white transition-colors">Posts</a>
+                <a href="https://contact.mritari.com" class="hover:text-white transition-colors">Contact & Links</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-3xl mx-auto pt-20 px-6">
+        
+        <header class="text-center py-10">
+            <h1 class="text-5xl font-semibold tracking-tighter text-primary mb-2">MRITARI</h1>
+            <p class="text-accent tracking-[0.2em] uppercase text-xs">ICT Student</p>
+        </header>
+
+        <section id="about" class="py-10 border-t border-accent/20">
+            <h2 class="text-primary uppercase tracking-[0.2em] mb-8">About</h2>
+            <ul class="space-y-4">
+                <li class="flex gap-3">• <span>Tech enthusiast currently studying ICT</span></li>
+                <li class="flex gap-3">• <span>Learning coding, networking and security</span></li>
+                <li class="flex gap-3">• <span>Planning to pursue a Bachelor of Engineering in 2027</span></li>
+            </ul>
+        </section>
+
+        <section id="projects" class="py-20 border-t border-accent/20">
+            <h2 class="text-primary uppercase tracking-[0.2em] mb-8">Projects</h2>
+            <div class="grid md:grid-cols-2 gap-4">
+                <a class="group border border-accent/50 p-8 hover:bg-accent/10 transition-all duration-300" href="https://mritari.github.io/SMRS-Handler/">
+                    <h3 class="text-xl text-primary mb-2">SMRS-Handler</h3>
+                    <p class="text-gray-500 text-sm">Multi-reverse-shell handler built with Python.</p>
+                </a>
+                <a class="group border border-accent/50 p-8 hover:bg-accent/10 transition-all duration-300" href="https://mritari.github.io/Rainbow-Six-Siege-Randomizer">
+                    <h3 class="text-xl text-primary mb-2">R6-Randomizer</h3>
+                    <p class="text-gray-500 text-sm">Utility for Rainbow Six Siege random loadouts.</p>
+                </a>
+            </div>
+        </section>
+
+        <section id="posts" class="py-20 border-t border-accent/20">
+            <h2 class="text-primary uppercase tracking-[0.2em] mb-8">Latest Posts</h2>
+            <div id="blog-posts" class="grid gap-4">
+                <p class="text-gray-600 italic">Loading posts...</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="border-t border-accent py-16 text-center">
+        <a href="https://contact.mritari.com" class="inline-block border border-primary text-primary px-8 py-3 text-xs font-bold uppercase tracking-[0.2em] hover:bg-primary hover:text-black transition-all">
+            Contact & Links
+        </a>
+    </footer>
+
+    <script>
+        async function fetchLatestPosts() {
+            const container = document.getElementById('blog-posts');
+            try {
+                const response = await fetch('https://mritari.com/blog/rss.xml');
+                if (!response.ok) throw new Error('Network error');
+                
+                const str = await response.text();
+                const xml = new window.DOMParser().parseFromString(str, "text/xml");
+                const items = xml.querySelectorAll("item");
+                
+                container.innerHTML = '';
+                
+                Array.from(items).slice(0, 2).forEach((el) => {
+                    const title = el.querySelector("title")?.textContent || "Untitled";
+                    const link = el.querySelector("link")?.textContent || "#";
+                    const pubDate = el.querySelector("pubDate")?.textContent;
+                    const desc = el.querySelector("description")?.textContent || "";
+                    const cleanDesc = desc.replace(/<[^>]*>?/gm, '').substring(0, 110).trim() + '...';
+                    
+                    const card = document.createElement('a');
+                    card.href = link;
+                    card.className = "block border border-accent/50 p-6 hover:bg-accent/10 transition-all duration-300";
+                    card.innerHTML = `
+                        <h3 class="text-lg text-primary mb-2 font-bold">${title}</h3>
+                        <p class="text-gray-500 text-sm mb-4">${cleanDesc}</p>
+                        <p class="text-[10px] text-primary uppercase tracking-widest">${new Date(pubDate).toLocaleDateString().toUpperCase()}</p>
+                    `;
+                    container.appendChild(card);
+                });
+            } catch (error) {
+                container.innerHTML = '<p class="text-gray-600">Could not load posts.</p>';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchLatestPosts);
+    </script>
+</html>
+

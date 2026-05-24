@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>403 - Forbidden</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#c8a065',
+                        accent: '#9e231b',
+                        bg: '#080808'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-bg text-gray-400 font-sans min-h-screen flex items-center justify-center">
+
+    <main class="text-center p-8 border border-accent/20">
+        <h1 class="text-6xl font-bold text-primary mb-4 tracking-tighter">403</h1>
+        
+        <div class="w-12 h-[1px] bg-accent mx-auto mb-6"></div>
+        
+        <p class="text-sm uppercase tracking-widest mb-8 text-gray-500">
+            Access to this directory is forbidden.
+        </p>
+
+        <a href="/" class="inline-block px-8 py-3 border border-primary/30 text-primary hover:bg-primary hover:text-black transition-all text-xs font-bold uppercase tracking-widest">
+            Return Home
+        </a>
+    </main>
+
+</body>
+</html>

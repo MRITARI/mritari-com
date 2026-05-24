@@ -1,0 +1,16 @@
+*
+!*/
+html/backup/
+html/blog/
+downloads/
+!.github/
+!.gitignore
+!README.md
+
+!*.html
+!*.css
+!*.js
+!*.png
+!*.ico
+!*.jpg
+!*.svg
