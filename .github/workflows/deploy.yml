@@ -1,0 +1,49 @@
+name: Deploy
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Cloudflared
+        run: |
+          wget -q https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
+          sudo dpkg -i cloudflared-linux-amd64.deb
+
+      - name: Configure SSH and Deploy
+        env:
+          SSH_HOST: ${{ secrets.SERVER_SSH_HOST }}
+          SSH_USER: ${{ secrets.SERVER_SSH_USERNAME }}
+          SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}
+          CF_CLIENT_ID: ${{ secrets.CF_CLIENT_ID }}
+          CF_CLIENT_SECRET: ${{ secrets.CF_CLIENT_SECRET }}
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          echo "$SSH_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
+          cat <<EOF > ~/.ssh/config
+          Host $SSH_HOST
+            ProxyCommand cloudflared access ssh --hostname %h --id "$CF_CLIENT_ID" --secret "$CF_CLIENT_SECRET"
+            StrictHostKeyChecking no
+          EOF
+
+          ssh $SSH_USER@$SSH_HOST << 'EOF'
+            mkdir -p /home/miska/portable-site_backups
+            TIMESTAMP=$(date +%Y-%m-%d_%H-%M-%S)
+            echo "Starting backup for $TIMESTAMP..."
+            
+            cp -rp /home/miska/portable-site /home/miska/portable-site_backups/backup_$TIMESTAMP            
+
+            cd /home/miska/portable-site
+            git fetch origin main
+            git reset --hard origin/main
+            
+            sudo docker compose up -d --build
+            
+            echo "Deployment and Backup successful."
+          EOF
