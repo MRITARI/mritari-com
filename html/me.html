@@ -31,6 +31,7 @@
             <div class="flex flex-wrap justify-center gap-x-4 gap-y-2 text-[10px] font-bold uppercase tracking-[0.2em] text-primary">
                 <a href="https://contact.mritari.com" class="hover:text-white transition-colors">Contact & Links</a>
                 <a href="https://pingu.mritari.com" class="hover:text-white transition-colors">Pingu</a>
+                <a href="https://mritari.com/blog.php" class="hover:text-white transition-colors">Blog</a>
             </div>
         </div>
     </nav>
@@ -87,42 +88,6 @@
         </a>
     </footer>
 
-    <script>
-        async function fetchLatestPosts() {
-            const container = document.getElementById('blog-posts');
-            try {
-                const response = await fetch('https://mritari.com/blog/rss.xml');
-                if (!response.ok) throw new Error('Network error');
-                
-                const str = await response.text();
-                const xml = new window.DOMParser().parseFromString(str, "text/xml");
-                const items = xml.querySelectorAll("item");
-                
-                container.innerHTML = '';
-                
-                Array.from(items).slice(0, 2).forEach((el) => {
-                    const title = el.querySelector("title")?.textContent || "Untitled";
-                    const link = el.querySelector("link")?.textContent || "#";
-                    const pubDate = el.querySelector("pubDate")?.textContent;
-                    const desc = el.querySelector("description")?.textContent || "";
-                    const cleanDesc = desc.replace(/<[^>]*>?/gm, '').substring(0, 110).trim() + '...';
-                    
-                    const card = document.createElement('a');
-                    card.href = link;
-                    card.className = "block border border-accent/50 p-6 hover:bg-accent/10 transition-all duration-300";
-                    card.innerHTML = `
-                        <h3 class="text-lg text-primary mb-2 font-bold">${title}</h3>
-                        <p class="text-gray-500 text-sm mb-4">${cleanDesc}</p>
-                        <p class="text-[10px] text-primary uppercase tracking-widest">${new Date(pubDate).toLocaleDateString().toUpperCase()}</p>
-                    `;
-                    container.appendChild(card);
-                });
-            } catch (error) {
-                container.innerHTML = '<p class="text-gray-600">Could not load posts.</p>';
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', fetchLatestPosts);
-    </script>
+   
 </html>
 
